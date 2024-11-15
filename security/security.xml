@@ -1,0 +1,32 @@
+<odoo>
+    <data>
+
+        <!-- Nhóm quyền Hiệu Trưởng -->
+        <record id="group_principal" model="res.groups">
+            <field name="name">Hiệu Trưởng</field>
+            <field name="category_id" ref="base.module_category_tutorial" />
+            <!-- Hiệu Trưởng sẽ được áp dụng thêm quyền từ nhóm người dùng cơ bản (base.group_user) -->
+            <field name="implied_ids" eval="[(4, ref('group_teacher')),(4, ref('group_student'))]" />
+            <!-- Thêm người dùng hệ thống như root hoặc admin vào nhóm Hiệu Trưởng nếu cần -->
+            <field name="users" eval="[(4, ref('base.user_root')),(4, ref('base.user_admin'))]" />
+        </record>
+
+        <!-- Nhóm giáo viên -->
+        <record id="group_teacher" model="res.groups">
+            <field name="name">Giáo Viên</field>
+            <field name="category_id" ref="base.module_category_tutorial" />
+            <!-- Giáo Viên sẽ được áp dụng quyền từ nhóm người dùng cơ bản (base.group_user) -->
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]" />
+            <!-- Giáo Viên không thể truy cập thông tin của học sinh -->
+        </record>
+
+        <!-- Nhóm học sinh -->
+        <record id="group_student" model="res.groups">
+            <field name="name">Học Sinh</field>
+            <field name="category_id" ref="base.module_category_tutorial" />
+            <!-- Học Sinh sẽ có quyền từ nhóm người dùng cơ bản (base.group_user) -->
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]" />
+            <!-- Học Sinh không thể truy cập thông tin của giáo viên -->
+        </record>     
+    </data>
+</odoo>
