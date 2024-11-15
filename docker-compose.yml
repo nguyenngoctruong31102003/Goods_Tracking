@@ -1,0 +1,30 @@
+version: "3.9"
+
+services:
+  web:
+    image: odoo:17.0
+    depends_on:
+      - db
+    ports:
+      - 8069:8069
+    volumes:
+      - itemtracking_odoo-web-data:/var/lib/odoo  # Sửa tên volume
+      - ./config:/etc/odoo
+      # - ./addons:/mnt/extra-addons
+      - ./addons:/mnt/addons
+    env_file:
+      - env/odoo.env
+    command: --
+  db:
+    image: postgres:16
+    ports:
+      - 5432:5432
+    env_file:
+      - env/postgresql.env
+    volumes:
+      - itemtracking_odoo-db-data:/var/lib/postgresql/data  # Sửa tên volume
+    restart: on-failure
+
+volumes:
+  itemtracking_odoo-web-data:
+  itemtracking_odoo-db-data:
