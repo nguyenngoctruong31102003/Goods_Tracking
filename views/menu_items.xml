@@ -1,0 +1,27 @@
+<odoo>
+    <data>
+    <!-- Start Menu View Root -->
+        <menuitem id="item_tracking" 
+        name="Item Tracking" 
+        sequence='0'/>
+    <!-- End Menu View Root -->
+
+    <!-- Start menu view Contact -->
+    <menuitem 
+        id="menu_action_contact" 
+        name="Contact"
+        parent='item_tracking'
+        sequence="1"
+        action="action_contact" />  
+    <!-- End menu view goods -->
+
+    <!-- Start menu view Product -->
+    <menuitem 
+        id="menu_action_product" 
+        name="Product"
+        parent='item_tracking'
+        sequence="2"
+        action="action_product" />  
+    <!-- End menu view goods -->
+    </data>
+</odoo>

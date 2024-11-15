@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+    <data>
+        <!-- Tree View inherit-->
+        <!-- <record id="tree_view_res_partner_inherit" model="ir.ui.view">
+            <field name="name">res.partner.tree.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_tree" />
+            <field name="arch" type="xml">
+                <xpath expr="//tree" position='inside'>
+                    <field name="test" />
+                </xpath>
+
+                <xpath expr="//field[@name='display_name']" position='attributes'>
+                    <attribute name="string">
+                        Name
+                    </attribute>
+                </xpath>
+            </field>
+        </record> -->
+
+        <!-- Form View inherit-->
+        <!-- <record id="form_view_res_partner_inherit" model="ir.ui.view">
+            <field name="name">res.partner.form.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='vat']" position='after'>
+                    <field name="test" widget="boolean_toggle" />
+                </xpath>
+            </field>
+        </record> -->
+
+        <!-- Form View-->
+        <record id="form_view_res_partner" model="ir.ui.view">
+            <field name="name">res.partner.form</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <form string="Partners">
+                    <sheet>
+                        <field name="image_1920" widget="image" class="oe_avatar" options="{'size': [250, 250]}"/>
+                        <div class="oe_title mb24">
+                            <h1>
+                                <field options="{'line_breaks': False}"
+                                    widget="field_partner_autocomplete" class="text-break"
+                                    name="name" default_focus="1" placeholder="e.g. Nguyễn Văn A"
+                                />
+                            </h1>
+                        </div>
+
+                        <notebook colspan="4">
+                            <page string="Sản phẩm gửi" name="products"
+                                autofocus="autofocus">
+                                <field name="product_ids" mode="kanban">
+                                    <kanban>
+                                        <field name="id" />
+                                        <field name="name" />
+                                        <field name="image_128" />
+                                        <field name="display_name" />
+                                        <templates>
+                                            <t t-name="kanban-box">
+                                                <div class="oe_kanban_global_click">
+                                                    <div class="o_kanban_image">
+                                                        <img alt="Product image"
+                                                            t-att-src="kanban_image('product.template', 'image_128', record.id.raw_value)" />
+                                                    </div>
+                                                    <div class="oe_kanban_details">
+                                                        <field name="name" />
+                                                    </div>
+                                                </div>
+                                            </t>
+                                        </templates>
+                                    </kanban>
+                                    <form string="Product">
+                                        <sheet>
+                                            <field name="image_1920" widget="image"
+                                                class="oe_avatar" />
+                                            <div class="oe_title mb24">
+                                                <h1>
+                                                    <field 
+                                                        name="name" 
+                                                        placeholder="e.g. Clothing"
+                                                    />
+                                                </h1>
+
+                                            </div>
+                                        </sheet>
+                                    </form>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="action_contact" model="ir.actions.act_window">
+            <field name="name">Contact</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="target">current</field>
+            <field name="view_ids"
+                eval="[
+                    (5, 0, 0),
+                    (0, 0, {'view_mode': 'kanban', 'view_id': ref('base.res_partner_kanban_view')}),
+                    (0, 0, {'view_mode': 'tree', 'view_id':  ref('base.view_partner_tree')}),
+                    (0, 0, {'view_mode': 'form', 'view_id': ref('item_tracking.form_view_res_partner')}),
+                    ]" />
+        </record>
+
+    </data>
+</odoo>
